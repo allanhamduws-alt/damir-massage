@@ -419,33 +419,37 @@ export default function Home() {
                 href={site.whatsappUrl} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="w-10 h-10 rounded bg-white hover:bg-[#B69668]/15 border border-[#B69668]/20 flex items-center justify-center text-[#B69668] hover:text-[#A08154] transition-all font-semibold text-xs shadow-sm cursor-pointer"
+                className="w-10 h-10 rounded bg-white hover:bg-[#B69668]/10 border border-[#B69668]/20 flex items-center justify-center text-[#B69668] hover:text-[#A08154] transition-all shadow-sm cursor-pointer"
+                title="WhatsApp"
               >
-                WA
-              </a>
-              <a 
-                href={site.facebookUrl} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="w-10 h-10 rounded bg-white hover:bg-[#B69668]/15 border border-[#B69668]/20 flex items-center justify-center text-[#B69668] hover:text-[#A08154] transition-all font-semibold text-xs shadow-sm cursor-pointer"
-              >
-                FB
+                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.437 0 9.862-4.424 9.865-9.864.001-2.636-1.02-5.115-2.875-6.97s-4.333-2.876-6.974-2.877c-5.44 0-9.863 4.424-9.865 9.864-.001 1.797.482 3.55 1.398 5.11l-.993 3.628 3.734-.979zm11.187-5.182c-.302-.151-1.788-.882-2.057-.981-.27-.099-.467-.149-.662.151-.195.3-.757.98-1.011 1.268-.254.29-.508.326-.81.175-1.012-.515-1.8-1.002-2.521-2.247-.195-.336-.039-.533.108-.721.272-.347.508-.662.662-.882.155-.219.1-.383-.05-.683-.15-.3-.662-1.6-.908-2.189-.239-.575-.487-.497-.662-.505-.17-.008-.367-.01-.563-.01-.197 0-.518.074-.789.37-.27.295-1.028 1.01-1.028 2.462 0 1.452 1.048 2.858 1.196 3.059.148.2 2.062 3.15 4.996 4.417.697.301 1.242.482 1.668.618.7.223 1.338.192 1.843.117.563-.083 1.788-.731 2.042-1.439.254-.707.254-1.314.178-1.44-.076-.124-.282-.196-.583-.346z"/></svg>
               </a>
               <a 
                 href={site.instagramUrl} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="w-10 h-10 rounded bg-white hover:bg-[#B69668]/15 border border-[#B69668]/20 flex items-center justify-center text-[#B69668] hover:text-[#A08154] transition-all font-semibold text-xs shadow-sm cursor-pointer"
+                className="w-10 h-10 rounded bg-white hover:bg-[#B69668]/10 border border-[#B69668]/20 flex items-center justify-center text-[#B69668] hover:text-[#A08154] transition-all shadow-sm cursor-pointer"
+                title="Instagram"
               >
-                IG
+                <svg className="w-5 h-5 stroke-current fill-none stroke-[2]" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
               </a>
               <a 
                 href={site.tiktokUrl} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="w-10 h-10 rounded bg-white hover:bg-[#B69668]/15 border border-[#B69668]/20 flex items-center justify-center text-[#B69668] hover:text-[#A08154] transition-all font-semibold text-xs shadow-sm cursor-pointer"
+                className="w-10 h-10 rounded bg-white hover:bg-[#B69668]/10 border border-[#B69668]/20 flex items-center justify-center text-[#B69668] hover:text-[#A08154] transition-all shadow-sm cursor-pointer"
+                title="TikTok"
               >
-                TK
+                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.03 2.61-.01 3.91-.02.08 1.53.63 3.01 1.63 4.14.99 1.09 2.37 1.82 3.86 2.05v3.87c-1.74-.03-3.41-.6-4.78-1.68-.2-.16-.39-.33-.57-.51v7.6c0 1.95-.53 3.88-1.57 5.48-1.65 2.53-4.52 4-7.51 3.81-2.92-.19-5.59-2-6.72-4.7-1.28-3.04-.6-6.66 1.71-9 1.53-1.56 3.66-2.43 5.82-2.43.29 0 .58.01.87.04v3.83c-.88-.26-1.85-.15-2.65.34-.99.6-1.59 1.67-1.6 2.82 0 1.58 1.13 2.97 2.7 3.12 1.34.13 2.64-.67 3.07-1.94.13-.38.18-.79.17-1.19V.02z"/></svg>
+              </a>
+              <a 
+                href={site.facebookUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-10 h-10 rounded bg-white hover:bg-[#B69668]/10 border border-[#B69668]/20 flex items-center justify-center text-[#B69668] hover:text-[#A08154] transition-all shadow-sm cursor-pointer"
+                title="Facebook"
+              >
+                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
               </a>
             </div>
           </div>
@@ -466,11 +470,130 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 bg-[#E5DFC9] border-t border-[#B69668]/15 text-center text-xs text-[#6E6A64] px-6">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 font-medium">
+      <footer className="bg-[#1C1A17] text-[#FAF7F2]/80 border-t border-[#B69668]/20 pt-16 pb-8 px-6 font-sans">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+          
+          {/* Column 1: Brand Info */}
+          <div className="flex flex-col gap-4">
+            <h3 className="font-serif text-lg text-white font-normal tracking-wide">
+              Damir & Cagla's<br />
+              <span className="text-[#B69668] italic font-serif">Massagepraxis</span>
+            </h3>
+            <p className="text-xs text-[#FAF7F2]/60 leading-relaxed">
+              Ihre Oase der Ruhe und Prävention in Garbsen. Professionelle Fachpraktiken für ganzheitliche Entspannung, Regeneration und Schmerzlinderung.
+            </p>
+            <div className="flex gap-2.5 mt-2">
+              <a 
+                href={site.whatsappUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-8 h-8 rounded bg-[#B69668]/10 hover:bg-[#B69668] hover:text-white border border-[#B69668]/30 flex items-center justify-center text-[#B69668] transition-all cursor-pointer"
+                title="WhatsApp"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.451 5.437 0 9.862-4.424 9.865-9.864.001-2.636-1.02-5.115-2.875-6.97s-4.333-2.876-6.974-2.877c-5.44 0-9.863 4.424-9.865 9.864-.001 1.797.482 3.55 1.398 5.11l-.993 3.628 3.734-.979zm11.187-5.182c-.302-.151-1.788-.882-2.057-.981-.27-.099-.467-.149-.662.151-.195.3-.757.98-1.011 1.268-.254.29-.508.326-.81.175-1.012-.515-1.8-1.002-2.521-2.247-.195-.336-.039-.533.108-.721.272-.347.508-.662.662-.882.155-.219.1-.383-.05-.683-.15-.3-.662-1.6-.908-2.189-.239-.575-.487-.497-.662-.505-.17-.008-.367-.01-.563-.01-.197 0-.518.074-.789.37-.27.295-1.028 1.01-1.028 2.462 0 1.452 1.048 2.858 1.196 3.059.148.2 2.062 3.15 4.996 4.417.697.301 1.242.482 1.668.618.7.223 1.338.192 1.843.117.563-.083 1.788-.731 2.042-1.439.254-.707.254-1.314.178-1.44-.076-.124-.282-.196-.583-.346z"/></svg>
+              </a>
+              <a 
+                href={site.instagramUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-8 h-8 rounded bg-[#B69668]/10 hover:bg-[#B69668] hover:text-white border border-[#B69668]/30 flex items-center justify-center text-[#B69668] transition-all cursor-pointer"
+                title="Instagram"
+              >
+                <svg className="w-4 h-4 stroke-current fill-none stroke-[2]" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </a>
+              <a 
+                href={site.tiktokUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-8 h-8 rounded bg-[#B69668]/10 hover:bg-[#B69668] hover:text-white border border-[#B69668]/30 flex items-center justify-center text-[#B69668] transition-all cursor-pointer"
+                title="TikTok"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.03 2.61-.01 3.91-.02.08 1.53.63 3.01 1.63 4.14.99 1.09 2.37 1.82 3.86 2.05v3.87c-1.74-.03-3.41-.6-4.78-1.68-.2-.16-.39-.33-.57-.51v7.6c0 1.95-.53 3.88-1.57 5.48-1.65 2.53-4.52 4-7.51 3.81-2.92-.19-5.59-2-6.72-4.7-1.28-3.04-.6-6.66 1.71-9 1.53-1.56 3.66-2.43 5.82-2.43.29 0 .58.01.87.04v3.83c-.88-.26-1.85-.15-2.65.34-.99.6-1.59 1.67-1.6 2.82 0 1.58 1.13 2.97 2.7 3.12 1.34.13 2.64-.67 3.07-1.94.13-.38.18-.79.17-1.19V.02z"/></svg>
+              </a>
+              <a 
+                href={site.facebookUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-8 h-8 rounded bg-[#B69668]/10 hover:bg-[#B69668] hover:text-white border border-[#B69668]/30 flex items-center justify-center text-[#B69668] transition-all cursor-pointer"
+                title="Facebook"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              </a>
+            </div>
+          </div>
+          
+          {/* Column 2: Opening Hours */}
+          <div className="flex flex-col gap-4">
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-[#B69668]">Öffnungszeiten</h4>
+            <ul className="text-xs text-[#FAF7F2]/60 flex flex-col gap-2 leading-relaxed">
+              <li className="flex justify-between border-b border-[#FAF7F2]/10 pb-1">
+                <span>Montag - Samstag:</span>
+                <span className="text-white font-medium">09:00 - 20:00 Uhr</span>
+              </li>
+              <li className="flex justify-between border-b border-[#FAF7F2]/10 pb-1">
+                <span>Sonntag & Feiertage:</span>
+                <span className="text-[#B69668] italic font-medium">Nach Absprache</span>
+              </li>
+              <li className="text-[10px] text-[#FAF7F2]/40 italic mt-1 leading-normal">
+                Hinweis: Termine ausschließlich nach vorheriger Online-Buchung oder telefonischer Absprache.
+              </li>
+            </ul>
+          </div>
+          
+          {/* Column 3: Navigation & Legal */}
+          <div className="flex flex-col gap-4">
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-[#B69668]">Rechtliches & Links</h4>
+            <ul className="text-xs text-[#FAF7F2]/60 flex flex-col gap-2">
+              <li>
+                <a href="#about" className="hover:text-[#B69668] transition-colors">Über uns</a>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-[#B69668] transition-colors">Behandlungen</a>
+              </li>
+              <li>
+                <Link href="/qualifikationen" className="hover:text-[#B69668] transition-colors">Zertifikate & Qualifikationen</Link>
+              </li>
+              <li>
+                <Link href="/booking" className="hover:text-[#B69668] transition-colors">Online-Terminbuchung</Link>
+              </li>
+              <li>
+                <a href="/impressum" className="hover:text-[#B69668] transition-colors">Impressum</a>
+              </li>
+              <li>
+                <a href="/datenschutz" className="hover:text-[#B69668] transition-colors">Datenschutzerklärung</a>
+              </li>
+            </ul>
+          </div>
+          
+          {/* Column 4: Contact details */}
+          <div className="flex flex-col gap-4">
+            <h4 className="text-[10px] font-bold uppercase tracking-widest text-[#B69668]">Kontakt</h4>
+            <ul className="text-xs text-[#FAF7F2]/60 flex flex-col gap-3">
+              <li className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-[#B69668] shrink-0 mt-0.5" />
+                <span className="leading-relaxed">
+                  Gerhart-Hauptmann-Straße 16<br />
+                  30826 Garbsen
+                </span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Phone className="w-4 h-4 text-[#B69668] shrink-0" />
+                <span>0157 34368 721</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Mail className="w-4 h-4 text-[#B69668] shrink-0" />
+                <a href="mailto:damir-cagla@hotmail.de" className="hover:text-[#B69668] transition-colors break-all">damir-cagla@hotmail.de</a>
+              </li>
+            </ul>
+          </div>
+          
+        </div>
+        
+        {/* Footer bottom divider and copyright */}
+        <div className="border-t border-[#B69668]/15 pt-8 max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left text-[11px] text-[#FAF7F2]/50 font-medium">
           <p>© {new Date().getFullYear()} Damir & Cagla's Massagepraxis. Alle Rechte vorbehalten.</p>
-          <div className="flex gap-6 uppercase tracking-widest text-[9px] font-bold">
-            <a href="#home" className="hover:text-[#B69668] transition-colors">Nach oben</a>
+          <div className="flex items-center gap-4">
+            <a href="#home" className="hover:text-[#B69668] transition-colors uppercase tracking-widest text-[9px] font-bold">Nach oben</a>
           </div>
         </div>
       </footer>

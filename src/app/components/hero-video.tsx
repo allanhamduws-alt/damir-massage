@@ -23,7 +23,6 @@ export default function HeroVideo() {
       muted
       playsInline
       className="w-full h-full object-cover opacity-90 transition-opacity duration-1000"
-      poster="/images/hero.png"
     >
       <source src="/videos/hero.mp4" type="video/mp4" />
       {/* Fallback support for older systems */}
