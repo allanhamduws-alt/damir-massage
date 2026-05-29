@@ -34,6 +34,25 @@ export default function BookingPage(props: { searchParams: Promise<{ service?: s
   const [submitError, setSubmitError] = useState("");
   const [createdBooking, setCreatedBooking] = useState<any>(null);
 
+  const getServiceImage = (id: string) => {
+    switch (id) {
+      case "triggerpunkt-45":
+        return "/images/service_trigger_teil.png";
+      case "triggerpunkt-90":
+        return "/images/service_trigger_ganz.png";
+      case "schroepfen-45":
+        return "/images/service_schroepfen.png";
+      case "entspannung-45":
+        return "/images/service_entspannung.png";
+      case "gutschein-60":
+        return "/images/service_gutschein.png";
+      case "schwangerschaft":
+        return "/images/service_schwangerschaft.png";
+      default:
+        return "/images/tools.png";
+    }
+  };
+
   // Fetch active services
   useEffect(() => {
     async function fetchServices() {
@@ -225,21 +244,35 @@ export default function BookingPage(props: { searchParams: Promise<{ service?: s
                         setSelectedService(service);
                         setStep(2);
                       }}
-                      className={`p-6 text-left rounded-sm border transition-all duration-200 flex flex-col sm:flex-row justify-between sm:items-center gap-4 ${
+                      className={`text-left rounded-sm border transition-all duration-200 overflow-hidden flex flex-col md:flex-row gap-5 p-5 ${
                         selectedService?.id === service.id
                           ? "border-[#C5A880] bg-[#C5A880]/5"
                           : "border-white/10 hover:border-[#C5A880]/40 bg-white/5 hover:bg-white/[0.07]"
                       }`}
                     >
-                      <div>
-                        <span className="text-[9px] uppercase tracking-widest text-[#C5A880]">{service.category}</span>
-                        <h3 className="font-serif text-lg font-semibold text-[#F4F1EA] mt-1">{service.name}</h3>
-                        <p className="text-[#A8A398] text-xs sm:text-sm mt-2 max-w-xl">{service.description}</p>
+                      {/* Image Thumbnail */}
+                      <div className="w-full md:w-36 h-28 md:h-24 overflow-hidden rounded-sm border border-[#C5A880]/10 shrink-0 relative shadow-md">
+                        <img 
+                          src={getServiceImage(service.id)} 
+                          alt={service.name} 
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                      <div className="flex sm:flex-col items-start sm:items-end justify-between border-t sm:border-t-0 border-[#C5A880]/10 pt-3 sm:pt-0">
-                        <span className="font-serif text-lg text-[#C5A880]">{service.priceEuro} €</span>
-                        <span className="text-xs text-[#A8A398] flex items-center gap-1 mt-1">
-                          <Clock className="w-3.5 h-3.5" /> {service.durationMinutes} Min.
+
+                      {/* Content details */}
+                      <div className="flex-1 flex flex-col justify-between">
+                        <div>
+                          <span className="text-[9px] uppercase tracking-widest text-[#C5A880] font-bold">{service.category}</span>
+                          <h3 className="font-serif text-lg font-semibold text-[#F4F1EA] mt-0.5">{service.name}</h3>
+                          <p className="text-[#A8A398] text-xs sm:text-sm mt-1.5 leading-relaxed line-clamp-2 md:line-clamp-none">{service.description}</p>
+                        </div>
+                      </div>
+
+                      {/* Price & Duration */}
+                      <div className="flex md:flex-col items-center md:items-end justify-between md:justify-center border-t md:border-t-0 border-[#C5A880]/10 pt-3 md:pt-0 shrink-0 md:pl-4">
+                        <span className="font-serif text-xl font-medium text-[#C5A880]">{service.priceEuro} €</span>
+                        <span className="text-xs text-[#A8A398] flex items-center gap-1 mt-1 font-medium">
+                          <Clock className="w-3.5 h-3.5 text-[#C5A880]" /> {service.durationMinutes} Min.
                         </span>
                       </div>
                     </button>
