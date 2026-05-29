@@ -77,7 +77,7 @@ export default function CertificateShowcase({ certificates }: { certificates: Ce
 
           <div className="mt-4 text-center max-w-lg">
             <p className="text-xs text-[#6E6A64] flex items-center justify-center gap-1.5">
-              <Shield className="w-4 h-4 text-[#B69668]" /> Hochauflösender Original-Zertifikatsschnitt • Klicken zum Schließen
+              Klicken zum Schließen
             </p>
           </div>
         </div>

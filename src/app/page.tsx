@@ -3,101 +3,39 @@ import { readData } from "@/lib/store";
 import { site } from "@/lib/seed";
 import { 
   Calendar, Clock, MapPin, Phone, Mail, Award, CheckCircle, 
-  Flame, Shield, Gift, GraduationCap 
+  Flame, Shield, Gift, GraduationCap, ArrowRight, Sparkles 
 } from "lucide-react";
-import CertificateShowcase from "./components/certificate-showcase";
 import HeroVideo from "./components/hero-video";
 
 export default function Home() {
   const data = readData();
   const activeServices = data.services.filter((s) => s.active);
 
-  // Recreated Certificates Data
-  const certificates = [
-    {
-      id: "fachpraktiker",
-      title: "Geprüfter Fachpraktiker",
-      subtitle: "für Massage, Wellness & Prävention",
-      recipient: "Herr Damir Krasnic",
-      date: "09.03.2023",
-      issuer: "Wellness Heimstudium / WIP GmbH",
-      accreditation: "TÜV-zertifizierte Bildungseinrichtung",
-      inhalte: [
-        "Grundlagen der Anatomie / Krankheitslehre",
-        "Klassische Ganzkörpermassage",
-        "Hot-Stone-Massage & Breuß-Massage",
-        "Präventive Lymphdrainage",
-        "Fußreflexzonenmassage",
-        "Kräuterstempel-Massage & Mobile Massage",
-        "Schröpfmassage & Shiatsu-Massage",
-        "Existenzgründung, Marketing, Rechts- & Berufskunde"
-      ],
-      gold: true,
-      image: "/images/cert_fachpraktiker.png"
-    },
-    {
-      id: "fitness",
-      title: "Professional Fitness Coach",
-      subtitle: "A/B-Lizenz & Personal-Trainer (Medical Fitness)",
-      recipient: "Herr Damir Krasnic",
-      date: "22.03.2024",
-      issuer: "WIP-Academy Berlin / WIP GmbH",
-      accreditation: "Erfolgreich zertifiziertes WIP-Schulungszentrum",
-      inhalte: [
-        "Grundlagen Anatomie & Krankheitslehre",
-        "Medizinisches Fitness- & Personal-Training",
-        "Outdoor- & Functional-Training",
-        "Cardio-Training & Stretching",
-        "Sporternährung & Trainingsplanerstellung",
-        "Anamnese, Check-up & Muskelfunktionstests",
-        "SPA-Techniken, Marketing & Existenzgründung"
-      ],
-      gold: true,
-      image: "/images/cert_fitness.png"
-    },
-    {
-      id: "hijama",
-      title: "Hijama Therapy",
-      subtitle: "Zertifikat für traditionelle Schröpftherapie",
-      recipient: "Damir Krasnic",
-      date: "07.01.2023",
-      issuer: "SENZOS UG (Traditional Medicine)",
-      accreditation: "Zertifikats-Nr: HID20232548633",
-      inhalte: [
-        "Geschichte & Grundlagen der Hijama-Therapie",
-        "Praktische Anwendung & Methodik des Schröpfens",
-        "Hygienestandards & Kontraindikationen",
-        "Traditionelle naturheilkundliche Praxis",
-        "Betreuung & Nachsorge der Klienten"
-      ],
-      gold: false,
-      image: "/images/cert_hijama.png"
-    },
-    {
-      id: "baby",
-      title: "Baby-Massage",
-      subtitle: "Zertifikat für fachgerechte Säuglingsmassage",
-      recipient: "Damir und Cagla Krasnic",
-      date: "21.05.2023",
-      issuer: "Wellness Heimstudium / WIP GmbH",
-      accreditation: "Gemeinsame Ausbildung für Säuglingspflege & Wellness",
-      inhalte: [
-        "Geschichtliche Hintergründe der Babymassage",
-        "Ausstattung & wohltuende Raumvorbereitung",
-        "Lagerung & beruhigende Kontaktaufnahme",
-        "Praktische Anwendung (Bauch- & Rückenlage)",
-        "Abschluss und Integration in den Alltag"
-      ],
-      gold: false,
-      image: "/images/cert_baby.png"
+  // Map service ID to their custom, highly consistent spa images
+  const getServiceImage = (id: string) => {
+    switch (id) {
+      case "triggerpunkt-45":
+        return "/images/service_trigger_teil.png";
+      case "triggerpunkt-90":
+        return "/images/service_trigger_ganz.png";
+      case "schroepfen-45":
+        return "/images/service_schroepfen.png";
+      case "entspannung-45":
+        return "/images/service_entspannung.png";
+      case "gutschein-60":
+        return "/images/service_gutschein.png";
+      case "schwangerschaft":
+        return "/images/service_schwangerschaft.png";
+      default:
+        return "/images/tools.png";
     }
-  ];
+  };
 
   return (
     <div className="min-h-screen bg-[#FAF7F2] text-[#2D2B28] font-sans selection:bg-[#EFEBE4] selection:text-[#2D2B28]">
       
       {/* Floating Header */}
-      <header className="sticky top-0 z-50 w-full bg-[#FAF7F2]/90 backdrop-blur-md border-b border-[#B69668]/15">
+      <header className="sticky top-0 z-40 w-full bg-[#FAF7F2]/90 backdrop-blur-md border-b border-[#B69668]/15">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex flex-col">
             <span className="font-serif text-xl md:text-2xl text-[#B69668] tracking-wider leading-none font-semibold">Damir & Cagla</span>
@@ -107,7 +45,7 @@ export default function Home() {
           <nav className="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest text-[#6E6A64] font-semibold">
             <a href="#home" className="hover:text-[#B69668] transition-colors">Home</a>
             <a href="#about" className="hover:text-[#B69668] transition-colors">Über uns</a>
-            <a href="#certificates" className="hover:text-[#B69668] transition-colors">Qualifikationen</a>
+            <Link href="/qualifikationen" className="hover:text-[#B69668] transition-colors">Qualifikationen</Link>
             <a href="#treatments" className="hover:text-[#B69668] transition-colors">Behandlungen</a>
             <a href="#praxis" className="hover:text-[#B69668] transition-colors">Praxis</a>
             <a href="#contact" className="hover:text-[#B69668] transition-colors">Kontakt</a>
@@ -136,9 +74,9 @@ export default function Home() {
         </div>
 
         <div className="max-w-6xl mx-auto px-6 w-full relative z-20 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-7 flex flex-col items-start gap-6 animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#B69668]/8 border border-[#B69668]/20 rounded-full text-[10px] uppercase tracking-widest text-[#B69668] font-bold">
-              <Flame className="w-3.5 h-3.5" /> Zertifizierte Wellnesspraxis in Garbsen
+          <div className="lg:col-span-7 flex flex-col items-start gap-6 animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#B69668]/10 border border-[#B69668]/20 rounded-full text-[10px] uppercase tracking-widest text-[#B69668] font-bold">
+              <Flame className="w-3.5 h-3.5 animate-pulse" /> Zertifizierte Wellnesspraxis in Garbsen
             </div>
             
             <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl text-[#2D2B28] leading-tight tracking-wide font-normal">
@@ -169,7 +107,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="lg:col-span-5 hidden lg:flex justify-center relative animate-fade-in animate-delay-200">
+          <div className="lg:col-span-5 hidden lg:flex justify-center relative animate-fade-in-up animate-delay-200">
             {/* Elegant Passepartout Frame for Hero Image */}
             <div className="gallery-frame p-3 bg-white w-80 h-96">
               <img 
@@ -190,55 +128,113 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Wer Ist Damir Section with REAL downloaded portrait headshot */}
+      {/* Wer Ist Damir Section with ENLARGED profile photo, thin border, and luxury backing stamp */}
       <section id="about" className="py-24 bg-[#F3EFE9] border-y border-[#B69668]/10 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(182,150,104,0.03),transparent_70%)] pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(182,150,104,0.04),transparent_70%)] pointer-events-none"></div>
+        
         <div className="max-w-4xl mx-auto px-6 text-center flex flex-col items-center gap-8 relative z-10">
-          <div className="gallery-frame p-2 w-44 h-44 rounded-full overflow-hidden bg-white shadow-xl">
-            <img 
-              src="/images/damir.jpg" 
-              alt="Damir Krasnic - Certified Specialist" 
-              className="w-full h-full object-cover relative z-10 rounded-full" 
-            />
+          
+          {/* Overlapping layered photo container */}
+          <div className="relative">
+            {/* Elegant circular background gold seal (sticker) */}
+            <div className="absolute -top-4 -right-4 bg-[#B69668]/10 border border-[#B69668]/30 w-28 h-28 rounded-full flex flex-col items-center justify-center text-center p-3 rotate-12 shadow-sm pointer-events-none select-none z-0">
+              <span className="text-[8px] uppercase tracking-widest text-[#B69668] font-bold">100% Geprüft</span>
+              <span className="font-serif text-[10px] font-bold text-[#2D2B28] mt-1">Fachpraktiker</span>
+              <span className="text-[8px] uppercase tracking-widest text-[#6E6A64] mt-1 font-semibold">Prävention</span>
+            </div>
+
+            {/* Enlarged photo with thin border */}
+            <div className="relative z-10 w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden bg-white shadow-2xl p-1.5 border-[0.5px] border-[#B69668]/30">
+              <img 
+                src="/images/damir.jpg" 
+                alt="Damir Krasnic - Certified Specialist" 
+                className="w-full h-full object-cover rounded-full" 
+              />
+            </div>
           </div>
           
-          <div className="max-w-2xl">
+          <div className="max-w-2xl mt-4 animate-fade-in-up">
             <span className="text-[10px] uppercase tracking-widest text-[#B69668] font-bold">Wer ist</span>
             <h2 className="font-serif text-3xl md:text-4xl text-[#2D2B28] mt-2 mb-6 font-semibold">Damir Krasnic</h2>
             
-            <p className="text-[#6E6A64] text-base md:text-lg leading-relaxed mb-6 font-medium">
+            <p className="text-[#6E6A64] text-base md:text-lg leading-relaxed mb-8 font-medium">
               „Ich bin ein zertifizierter Fachpraktiker für Wellness und Massageprävention. Meine Expertise und Hingabe in der Massage ermöglichen es mir, meinen Kunden eine Vielzahl von Behandlungen anzubieten. Mit Herz und Leidenschaft widme ich mich meinen Behandlungen, um Ihnen eine erholsame Auszeit zu ermöglichen. Meine Massagen sind darauf ausgelegt, Verspannungen zu lösen, Stress abzubauen und Ihr körperliches Wohlbefinden zu steigern.“
             </p>
             
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 bg-white border border-[#B69668]/15 rounded-sm shadow-sm">
-              <CheckCircle className="w-5 h-5 text-[#B69668]" />
-              <span className="text-[10px] uppercase tracking-widest text-[#2D2B28] font-bold">Zertifizierter Fachpraktiker für Massage</span>
+            {/* Overhauled, highly active, premium seal badge */}
+            <div className="inline-flex items-center gap-3 px-6 py-3.5 bg-gradient-to-r from-[#B69668]/8 via-white to-[#B69668]/8 border border-[#B69668]/30 rounded-full shadow-md text-xs uppercase tracking-widest text-[#2D2B28] font-bold transition-all duration-300 hover:border-[#B69668]">
+              <Sparkles className="w-4 h-4 text-[#B69668] animate-spin-slow" />
+              <span>Zertifizierter Fachpraktiker für Massage & Prävention</span>
+              <Shield className="w-4 h-4 text-[#B69668]" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Qualifikationen & Zertifikate (Animated visual grid) */}
-      <section id="certificates" className="py-24 max-w-6xl mx-auto px-6 relative">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#B69668]/3 rounded-full blur-[100px] pointer-events-none"></div>
+      {/* Qualifikationen & Zertifikate (ELEGANT TEASER Sektion) */}
+      <section id="certificates" className="py-24 max-w-6xl mx-auto px-6 relative border-b border-[#B69668]/15">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#B69668]/2 rounded-full blur-[100px] pointer-events-none"></div>
 
-        <div className="text-center max-w-xl mx-auto mb-16 relative z-10">
-          <GraduationCap className="w-8 h-8 text-[#B69668] mx-auto mb-3" />
-          <span className="text-[10px] uppercase tracking-widest text-[#B69668] font-bold">Nachgewiesene Expertise</span>
-          <h2 className="font-serif text-3xl sm:text-4xl text-[#2D2B28] mt-2 font-semibold">Unsere Zertifikate & Qualifikationen</h2>
-          <div className="w-12 h-0.5 bg-[#B69668] mx-auto mt-4"></div>
-          <p className="text-[#6E6A64] text-xs mt-3">
-            Die Zertifikate werden unten automatisch eingeblendet und können durch Anklicken in gestochen scharfer Auflösung eingesehen werden.
-          </p>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+          
+          {/* Left Side: Teaser Text & CTA */}
+          <div className="lg:col-span-6 flex flex-col items-start gap-6 text-left animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#B69668]/10 border border-[#B69668]/20 rounded-full text-[9px] uppercase tracking-widest text-[#B69668] font-bold">
+              <GraduationCap className="w-3.5 h-3.5" /> Offizielle Qualifikationen
+            </div>
+            
+            <h2 className="font-serif text-3xl sm:text-4xl text-[#2D2B28] font-semibold leading-tight">
+              TÜV-zertifizierte Fachkompetenz & Ausbildung
+            </h2>
+            <div className="w-12 h-0.5 bg-[#B69668]"></div>
+            
+            <p className="text-[#6E6A64] text-sm sm:text-base leading-relaxed font-medium">
+              Damir Krasnic ist hochqualifizierter Experte für Massage, Personal Training und präventive Gesundheit. Jedes unserer Zertifikate steht für hunderte Stunden fundierte Fachpraxis und eine erfolgreich abgelegte theoretische wie praktische Prüfung.
+            </p>
+            
+            <p className="text-[#6E6A64] text-xs leading-relaxed font-medium italic">
+              Unsere Ausbildungsinhalte basieren auf staatlich anerkannten und nach AZAV zertifizierten Schulungsprogrammen (u.a. WIP Academy Berlin und Wellness Heimstudium).
+            </p>
 
-        <div className="relative z-10">
-          <CertificateShowcase certificates={certificates} />
+            <Link 
+              href="/qualifikationen" 
+              className="inline-flex items-center gap-2 bg-[#B69668] hover:bg-[#A08154] text-white font-bold py-4 px-8 rounded-sm text-xs uppercase tracking-widest transition-all duration-300 shadow-lg shadow-[#B69668]/15 cursor-pointer mt-2"
+            >
+              Zertifikatsmappe öffnen <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {/* Right Side: Elegant overlapping stack preview of certifications */}
+          <div className="lg:col-span-6 flex justify-center items-center relative animate-fade-in-up animate-delay-200">
+            {/* Back Certificate (Personal Trainer) */}
+            <div className="gallery-frame p-2 bg-white w-64 aspect-[4/3] rotate-[-6deg] translate-x-8 translate-y-4 opacity-75 shadow-lg pointer-events-none">
+              <img 
+                src="/images/cert_fitness.png" 
+                alt="Fitness Coach Certificate Teaser" 
+                className="w-full h-full object-contain filter contrast-[1.01]" 
+              />
+            </div>
+            
+            {/* Front Certificate (Fachpraktiker) */}
+            <div className="gallery-frame p-2 bg-white w-72 aspect-[4/3] rotate-[3deg] absolute shadow-2xl transition-all duration-500 hover:rotate-0 hover:scale-102">
+              <div className="absolute inset-0 bg-[#2D2B28]/3 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                <Link href="/qualifikationen" className="bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-full border border-[#B69668]/20 shadow-md text-[9px] uppercase tracking-widest text-[#2D2B28] font-bold flex items-center gap-1.5 cursor-pointer">
+                  Zertifikate ansehen <ArrowRight className="w-3.5 h-3.5 text-[#B69668]" />
+                </Link>
+              </div>
+              <img 
+                src="/images/cert_fachpraktiker.png" 
+                alt="Fachpraktiker Certificate Teaser" 
+                className="w-full h-full object-contain filter contrast-[1.01]" 
+              />
+            </div>
+          </div>
+
         </div>
       </section>
 
       {/* Treatments Section */}
-      <section id="treatments" className="py-24 max-w-6xl mx-auto px-6 border-t border-[#B69668]/15">
+      <section id="treatments" className="py-24 max-w-6xl mx-auto px-6">
         <div className="text-center max-w-xl mx-auto mb-16">
           <span className="text-[10px] uppercase tracking-widest text-[#B69668] font-bold">Unsere Leistungen</span>
           <h2 className="font-serif text-3xl sm:text-4xl text-[#2D2B28] mt-2 font-semibold">Professionelle Behandlungen</h2>
@@ -252,33 +248,48 @@ export default function Home() {
           {activeServices.map((service) => (
             <div 
               key={service.id} 
-              className="spa-card p-6 sm:p-8 rounded-sm flex flex-col justify-between group"
+              className="spa-card overflow-hidden rounded-sm flex flex-col justify-between group"
             >
               <div>
-                <div className="flex justify-between items-start gap-4 mb-4">
-                  <div>
-                    <span className="text-[9px] uppercase tracking-widest text-[#B69668] bg-[#B69668]/5 px-2 py-1 border border-[#B69668]/10 rounded-sm font-bold">
-                      {service.category}
-                    </span>
-                    <h3 className="font-serif text-xl sm:text-2xl text-[#2D2B28] mt-3 group-hover:text-[#B69668] transition-colors duration-300 font-semibold leading-tight">
-                      {service.name}
-                    </h3>
+                {/* Stunning 16:9 Widescreen Image Header */}
+                <div className="relative w-full aspect-[16/9] overflow-hidden border-b border-[#B69668]/15 bg-[#FAF8F5]">
+                  <img 
+                    src={getServiceImage(service.id)} 
+                    alt={service.name} 
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-102"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+
+                {/* Card Body */}
+                <div className="p-6 sm:p-8">
+                  <div className="flex justify-between items-start gap-4 mb-4">
+                    <div>
+                      <span className="text-[9px] uppercase tracking-widest text-[#B69668] bg-[#B69668]/5 px-2 py-1 border border-[#B69668]/10 rounded-sm font-bold">
+                        {service.category}
+                      </span>
+                      <h3 className="font-serif text-xl sm:text-2xl text-[#2D2B28] mt-3 group-hover:text-[#B69668] transition-colors duration-300 font-semibold leading-tight">
+                        {service.name}
+                      </h3>
+                    </div>
+                    
+                    <div className="text-right flex flex-col items-end">
+                      <span className="text-xl sm:text-2xl font-serif text-[#B69668] font-bold">{service.priceEuro} €</span>
+                      <span className="text-xs text-[#6E6A64] flex items-center gap-1 mt-1.5 font-medium">
+                        <Clock className="w-3.5 h-3.5" /> {service.durationMinutes} Min.
+                      </span>
+                    </div>
                   </div>
                   
-                  <div className="text-right flex flex-col items-end">
-                    <span className="text-xl sm:text-2xl font-serif text-[#B69668] font-bold">{service.priceEuro} €</span>
-                    <span className="text-xs text-[#6E6A64] flex items-center gap-1 mt-1.5 font-medium">
-                      <Clock className="w-3.5 h-3.5" /> {service.durationMinutes} Min.
-                    </span>
-                  </div>
+                  <p className="text-[#6E6A64] text-sm leading-relaxed font-medium">
+                    {service.description}
+                  </p>
                 </div>
-                
-                <p className="text-[#6E6A64] text-sm leading-relaxed mb-6 font-medium">
-                  {service.description}
-                </p>
               </div>
 
-              <div className="flex items-center justify-between border-t border-[#B69668]/10 pt-4 mt-auto">
+              {/* Card Footer */}
+              <div className="px-6 sm:px-8 pb-6 sm:pb-8 pt-0 flex items-center justify-between border-t border-[#B69668]/10 mt-auto">
                 <span className="text-[10px] text-[#6E6A64] font-semibold uppercase tracking-wider">Zahlung vor Ort (Bar / Karte)</span>
                 <Link 
                   href={`/booking?service=${service.id}`} 
