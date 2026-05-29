@@ -22,6 +22,7 @@ export default function BookingPage(props: { searchParams: Promise<{ service?: s
   // Slots State
   const [slots, setSlots] = useState<Slot[]>([]);
   const [loadingSlots, setLoadingSlots] = useState(false);
+  const [weekOffset, setWeekOffset] = useState(0);
 
   // Customer Info
   const [customerName, setCustomerName] = useState("");
@@ -108,33 +109,43 @@ export default function BookingPage(props: { searchParams: Promise<{ service?: s
     fetchSlots();
   }, [selectedDate, selectedService]);
 
-  // Generate list of next 30 days for selection
-  const getNext30Days = () => {
+  // Generate list of exactly 6 working days (skipping Sundays) for paginated week selection
+  const getDaysForCurrentWeek = (offset: number) => {
     const days = [];
     const today = new Date();
     
-    for (let i = 0; i < 30; i++) {
-      const futureDate = new Date(today.getTime() + i * 24 * 60 * 60 * 1000);
-      const year = futureDate.getFullYear();
-      const month = String(futureDate.getMonth() + 1).padStart(2, "0");
-      const dateVal = String(futureDate.getDate()).padStart(2, "0");
-      const dateStr = `${year}-${month}-${dateVal}`;
-      
-      const weekday = futureDate.toLocaleDateString("de-DE", { weekday: "short" });
-      const dayLabel = futureDate.toLocaleDateString("de-DE", { day: "numeric", month: "short" });
-      
-      // Exclude Sundays by default in visual display
+    let addedCount = 0;
+    let dayIncrement = offset * 6;
+    
+    // Safety check to prevent infinite loop
+    let attempts = 0;
+    while (addedCount < 6 && attempts < 50) {
+      attempts++;
+      const futureDate = new Date(today.getTime() + dayIncrement * 24 * 60 * 60 * 1000);
       const isSunday = futureDate.getDay() === 0;
-
-      days.push({
-        value: dateStr,
-        weekday,
-        label: dayLabel,
-        disabled: isSunday
-      });
+      
+      if (!isSunday) {
+        const year = futureDate.getFullYear();
+        const month = String(futureDate.getMonth() + 1).padStart(2, "0");
+        const dateVal = String(futureDate.getDate()).padStart(2, "0");
+        const dateStr = `${year}-${month}-${dateVal}`;
+        
+        const weekday = futureDate.toLocaleDateString("de-DE", { weekday: "short" });
+        const dayLabel = futureDate.toLocaleDateString("de-DE", { day: "numeric", month: "short" });
+        
+        days.push({
+          value: dateStr,
+          weekday,
+          label: dayLabel,
+          disabled: false
+        });
+        addedCount++;
+      }
+      dayIncrement++;
     }
     return days;
   };
+
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -305,27 +316,55 @@ export default function BookingPage(props: { searchParams: Promise<{ service?: s
                 </div>
               )}
 
-              {/* 1. Date Selection Grid */}
+              {/* 1. Date Selection Paged Grid */}
               <div className="mb-8">
-                <p className="text-[#A8A398] text-xs uppercase tracking-wider mb-3">1. Datum auswählen:</p>
-                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 max-h-48 overflow-y-auto pr-1">
-                  {getNext30Days().map((day) => (
+                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3 mb-3">
+                  <p className="text-[#A8A398] text-xs uppercase tracking-wider">1. Datum auswählen:</p>
+                  
+                  {/* Pager Navigation */}
+                  <div className="flex items-center gap-3 self-end sm:self-auto">
+                    <button
+                      disabled={weekOffset === 0}
+                      onClick={() => setWeekOffset(prev => Math.max(0, prev - 1))}
+                      className={`px-2.5 py-1 rounded-sm border text-[10px] uppercase tracking-widest transition-all font-bold flex items-center gap-1 ${
+                        weekOffset === 0
+                          ? "opacity-20 cursor-not-allowed border-white/5 text-[#A8A398]"
+                          : "border-white/10 hover:border-[#C5A880]/40 text-[#C5A880] hover:text-[#D4AF37] bg-white/5 cursor-pointer"
+                      }`}
+                    >
+                      ← Zurück
+                    </button>
+                    <span className="text-[10px] uppercase tracking-widest text-[#A8A398] font-bold">Woche {weekOffset + 1}</span>
+                    <button
+                      disabled={weekOffset >= 3}
+                      onClick={() => setWeekOffset(prev => Math.min(3, prev + 1))}
+                      className={`px-2.5 py-1 rounded-sm border text-[10px] uppercase tracking-widest transition-all font-bold flex items-center gap-1 ${
+                        weekOffset >= 3
+                          ? "opacity-20 cursor-not-allowed border-white/5 text-[#A8A398]"
+                          : "border-white/10 hover:border-[#C5A880]/40 text-[#C5A880] hover:text-[#D4AF37] bg-white/5 cursor-pointer"
+                      }`}
+                    >
+                      Weiter →
+                    </button>
+                  </div>
+                </div>
+
+                {/* 6-Day Grid: Single row on desktop, 2 rows of 3 on mobile. No scrollbar! */}
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                  {getDaysForCurrentWeek(weekOffset).map((day) => (
                     <button
                       key={day.value}
-                      disabled={day.disabled}
                       onClick={() => {
                         setSelectedDate(day.value);
                       }}
-                      className={`p-3 rounded-sm border flex flex-col items-center justify-center transition-all ${
-                        day.disabled
-                          ? "opacity-20 cursor-not-allowed border-transparent"
-                          : selectedDate === day.value
-                          ? "border-[#C5A880] bg-[#C5A880]/10 text-[#C5A880] font-semibold"
-                          : "border-white/10 hover:border-white/20 bg-white/5"
+                      className={`p-3.5 rounded-sm border flex flex-col items-center justify-center transition-all cursor-pointer ${
+                        selectedDate === day.value
+                          ? "border-[#C5A880] bg-[#C5A880]/15 text-[#C5A880] font-bold shadow-md shadow-[#C5A880]/5"
+                          : "border-white/10 hover:border-white/20 bg-white/5 hover:bg-white/[0.08]"
                       }`}
                     >
-                      <span className="text-[10px] uppercase tracking-widest mb-1 opacity-70">{day.weekday}</span>
-                      <span className="text-xs">{day.label}</span>
+                      <span className="text-[9px] uppercase tracking-widest mb-1 opacity-80 font-bold">{day.weekday}</span>
+                      <span className="text-xs font-semibold">{day.label}</span>
                     </button>
                   ))}
                 </div>
