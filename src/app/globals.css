@@ -170,3 +170,31 @@ body {
   animation: pulseSlow 5s ease-in-out infinite;
 }
 
+/* Gold Shine Badge with sweeping light reflection and golden glow */
+.gold-shine-badge {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 35%, #FFFDF2 50%, #FFFFFF 65%, #FFFFFF 100%);
+  background-size: 200% auto;
+  border: 1px solid rgba(182, 150, 104, 0.4);
+  box-shadow: 0 4px 20px rgba(182, 150, 104, 0.12), 0 0 10px rgba(182, 150, 104, 0.05);
+  animation: goldShine 6s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+@keyframes goldShine {
+  0% {
+    background-position: -200% 0;
+    box-shadow: 0 4px 15px rgba(182, 150, 104, 0.1), 0 0 10px rgba(182, 150, 104, 0.05);
+  }
+  50% {
+    background-position: 200% 0;
+    box-shadow: 0 6px 25px rgba(182, 150, 104, 0.22), 0 0 25px rgba(182, 150, 104, 0.35);
+    border-color: rgba(182, 150, 104, 0.95);
+  }
+  100% {
+    background-position: 200% 0;
+    box-shadow: 0 4px 15px rgba(182, 150, 104, 0.1), 0 0 10px rgba(182, 150, 104, 0.05);
+  }
+}
+
+

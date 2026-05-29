@@ -136,13 +136,6 @@ export default function Home() {
           
           {/* Overlapping layered photo container */}
           <div className="relative">
-            {/* Elegant circular background gold seal (sticker) */}
-            <div className="absolute -top-4 -right-4 bg-[#B69668]/10 border border-[#B69668]/30 w-28 h-28 rounded-full flex flex-col items-center justify-center text-center p-3 rotate-12 shadow-sm pointer-events-none select-none z-0">
-              <span className="text-[8px] uppercase tracking-widest text-[#B69668] font-bold">100% Geprüft</span>
-              <span className="font-serif text-[10px] font-bold text-[#2D2B28] mt-1">Fachpraktiker</span>
-              <span className="text-[8px] uppercase tracking-widest text-[#6E6A64] mt-1 font-semibold">Prävention</span>
-            </div>
-
             {/* Enlarged photo with thin border */}
             <div className="relative z-10 w-56 h-56 md:w-64 md:h-64 rounded-full overflow-hidden bg-white shadow-2xl p-1.5 border-[0.5px] border-[#B69668]/30">
               <img 
@@ -150,6 +143,13 @@ export default function Home() {
                 alt="Damir Krasnic - Certified Specialist" 
                 className="w-full h-full object-cover rounded-full" 
               />
+            </div>
+
+            {/* Elegant circular gold seal (sticker) overlapping at the bottom right */}
+            <div className="absolute -bottom-4 -right-2 bg-[#FAF7F2] border-double border-4 border-[#B69668] w-24 h-24 rounded-full flex flex-col items-center justify-center text-center p-2.5 rotate-12 shadow-xl z-20 pointer-events-none select-none">
+              <span className="text-[7px] uppercase tracking-widest text-[#B69668] font-bold">100%</span>
+              <span className="font-serif text-[10px] font-bold text-[#2D2B28] mt-0.5 leading-none">Geprüfter</span>
+              <span className="text-[7px] uppercase tracking-widest text-[#6E6A64] mt-0.5 font-semibold">Spezialist</span>
             </div>
           </div>
           
@@ -161,8 +161,8 @@ export default function Home() {
               „Ich bin ein zertifizierter Fachpraktiker für Wellness und Massageprävention. Meine Expertise und Hingabe in der Massage ermöglichen es mir, meinen Kunden eine Vielzahl von Behandlungen anzubieten. Mit Herz und Leidenschaft widme ich mich meinen Behandlungen, um Ihnen eine erholsame Auszeit zu ermöglichen. Meine Massagen sind darauf ausgelegt, Verspannungen zu lösen, Stress abzubauen und Ihr körperliches Wohlbefinden zu steigern.“
             </p>
             
-            {/* Overhauled, highly active, premium seal badge */}
-            <div className="inline-flex items-center gap-3 px-6 py-3.5 bg-gradient-to-r from-[#B69668]/8 via-white to-[#B69668]/8 border border-[#B69668]/30 rounded-full shadow-md text-xs uppercase tracking-widest text-[#2D2B28] font-bold transition-all duration-300 hover:border-[#B69668]">
+            {/* Overhauled, highly active, premium shine badge */}
+            <div className="inline-flex items-center gap-3 px-6 py-3.5 gold-shine-badge rounded-full text-xs uppercase tracking-widest text-[#2D2B28] font-bold transition-all duration-300">
               <Sparkles className="w-4 h-4 text-[#B69668] animate-spin-slow" />
               <span>Zertifizierter Fachpraktiker für Massage & Prävention</span>
               <Shield className="w-4 h-4 text-[#B69668]" />
