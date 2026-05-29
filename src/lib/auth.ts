@@ -1,7 +1,7 @@
 import "server-only";
 
 import crypto from "node:crypto";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 const cookieName = "damir_admin_session";
 const defaultPassword = "damir-admin-2026";
@@ -45,10 +45,17 @@ export async function isAdmin() {
 
 export async function setAdminSession() {
   const cookieStore = await cookies();
+  const headerStore = await headers();
+  
+  // Detect if protocol is HTTPS (either via reverse proxy header or referer)
+  const xForwardedProto = headerStore.get("x-forwarded-proto");
+  const referer = headerStore.get("referer") || "";
+  const isHttps = xForwardedProto === "https" || referer.startsWith("https://");
+
   cookieStore.set(cookieName, createSessionValue(), {
     httpOnly: true,
     sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    secure: isHttps,
     path: "/",
     maxAge: 60 * 60 * 24 * 14,
   });
