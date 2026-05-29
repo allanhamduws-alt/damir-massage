@@ -22,7 +22,7 @@ export default function BookingPage(props: { searchParams: Promise<{ service?: s
   // Slots State
   const [slots, setSlots] = useState<Slot[]>([]);
   const [loadingSlots, setLoadingSlots] = useState(false);
-  const [weekOffset, setWeekOffset] = useState(0);
+  const [calendarDate, setCalendarDate] = useState(new Date());
 
   // Customer Info
   const [customerName, setCustomerName] = useState("");
@@ -109,42 +109,52 @@ export default function BookingPage(props: { searchParams: Promise<{ service?: s
     fetchSlots();
   }, [selectedDate, selectedService]);
 
-  // Generate list of exactly 6 working days (skipping Sundays) for paginated week selection
-  const getDaysForCurrentWeek = (offset: number) => {
+  // Generate full calendar grid for the selected month (Mon-Sun layout)
+  const getCalendarDays = () => {
+    const year = calendarDate.getFullYear();
+    const month = calendarDate.getMonth();
+    
+    // First day of the month
+    const firstDayOfMonth = new Date(year, month, 1);
+    
+    // Day of week of the first day (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+    // Shift so Monday is index 0
+    let startDayOfWeek = firstDayOfMonth.getDay() - 1;
+    if (startDayOfWeek === -1) startDayOfWeek = 6;
+    
+    // Total days in the month
+    const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
+    
     const days = [];
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
     
-    let addedCount = 0;
-    let dayIncrement = offset * 6;
-    
-    // Safety check to prevent infinite loop
-    let attempts = 0;
-    while (addedCount < 6 && attempts < 50) {
-      attempts++;
-      const futureDate = new Date(today.getTime() + dayIncrement * 24 * 60 * 60 * 1000);
-      const isSunday = futureDate.getDay() === 0;
-      
-      if (!isSunday) {
-        const year = futureDate.getFullYear();
-        const month = String(futureDate.getMonth() + 1).padStart(2, "0");
-        const dateVal = String(futureDate.getDate()).padStart(2, "0");
-        const dateStr = `${year}-${month}-${dateVal}`;
-        
-        const weekday = futureDate.toLocaleDateString("de-DE", { weekday: "short" });
-        const dayLabel = futureDate.toLocaleDateString("de-DE", { day: "numeric", month: "short" });
-        
-        days.push({
-          value: dateStr,
-          weekday,
-          label: dayLabel,
-          disabled: false
-        });
-        addedCount++;
-      }
-      dayIncrement++;
+    // 1. Pad the beginning of the grid with empty slots to align with weekday column headers
+    for (let i = 0; i < startDayOfWeek; i++) {
+      days.push({ value: "", label: "", disabled: true, isPadding: true });
     }
+    
+    // 2. Fill the actual days of the month
+    for (let day = 1; day <= totalDaysInMonth; day++) {
+      const futureDate = new Date(year, month, day);
+      const dateVal = String(day).padStart(2, "0");
+      const monthVal = String(month + 1).padStart(2, "0");
+      const dateStr = `${year}-${monthVal}-${dateVal}`;
+      
+      const isSunday = futureDate.getDay() === 0;
+      const isPast = futureDate.getTime() < today.getTime();
+      
+      days.push({
+        value: dateStr,
+        label: String(day),
+        disabled: isSunday || isPast,
+        isPadding: false
+      });
+    }
+    
     return days;
   };
+
 
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
@@ -316,57 +326,68 @@ export default function BookingPage(props: { searchParams: Promise<{ service?: s
                 </div>
               )}
 
-              {/* 1. Date Selection Paged Grid */}
+              {/* 1. Month Picker Calendar Grid */}
               <div className="mb-8">
-                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3 mb-3">
-                  <p className="text-[#A8A398] text-xs uppercase tracking-wider">1. Datum auswählen:</p>
+                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3 mb-4">
+                  <p className="text-[#A8A398] text-xs uppercase tracking-wider font-semibold">1. Datum auswählen:</p>
                   
-                  {/* Pager Navigation */}
+                  {/* Calendar Month Navigation */}
                   <div className="flex items-center gap-3 self-end sm:self-auto">
                     <button
-                      disabled={weekOffset === 0}
-                      onClick={() => setWeekOffset(prev => Math.max(0, prev - 1))}
-                      className={`px-2.5 py-1 rounded-sm border text-[10px] uppercase tracking-widest transition-all font-bold flex items-center gap-1 ${
-                        weekOffset === 0
-                          ? "opacity-20 cursor-not-allowed border-white/5 text-[#A8A398]"
-                          : "border-white/10 hover:border-[#C5A880]/40 text-[#C5A880] hover:text-[#D4AF37] bg-white/5 cursor-pointer"
-                      }`}
+                      onClick={() => setCalendarDate(new Date(calendarDate.getFullYear(), calendarDate.getMonth() - 1, 1))}
+                      disabled={calendarDate.getFullYear() === new Date().getFullYear() && calendarDate.getMonth() === new Date().getMonth()}
+                      className="w-8 h-8 rounded-sm border border-white/10 hover:border-[#C5A880]/40 text-[#C5A880] hover:text-[#D4AF37] bg-white/5 flex items-center justify-center disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer transition-all text-sm font-bold"
+                      title="Vorheriger Monat"
                     >
-                      ← Zurück
+                      ←
                     </button>
-                    <span className="text-[10px] uppercase tracking-widest text-[#A8A398] font-bold">Woche {weekOffset + 1}</span>
+                    <span className="text-[11px] uppercase tracking-widest text-[#F4F1EA] font-bold min-w-[120px] text-center bg-white/5 py-1.5 px-3 rounded-sm border border-white/5">
+                      {calendarDate.toLocaleString("de-DE", { month: "long", year: "numeric" })}
+                    </span>
                     <button
-                      disabled={weekOffset >= 3}
-                      onClick={() => setWeekOffset(prev => Math.min(3, prev + 1))}
-                      className={`px-2.5 py-1 rounded-sm border text-[10px] uppercase tracking-widest transition-all font-bold flex items-center gap-1 ${
-                        weekOffset >= 3
-                          ? "opacity-20 cursor-not-allowed border-white/5 text-[#A8A398]"
-                          : "border-white/10 hover:border-[#C5A880]/40 text-[#C5A880] hover:text-[#D4AF37] bg-white/5 cursor-pointer"
-                      }`}
+                      onClick={() => setCalendarDate(new Date(calendarDate.getFullYear(), calendarDate.getMonth() + 1, 1))}
+                      className="w-8 h-8 rounded-sm border border-white/10 hover:border-[#C5A880]/40 text-[#C5A880] hover:text-[#D4AF37] bg-white/5 flex items-center justify-center cursor-pointer transition-all text-sm font-bold"
+                      title="Nächster Monat"
                     >
-                      Weiter →
+                      →
                     </button>
                   </div>
                 </div>
 
-                {/* 6-Day Grid: Single row on desktop, 2 rows of 3 on mobile. No scrollbar! */}
-                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-                  {getDaysForCurrentWeek(weekOffset).map((day) => (
-                    <button
-                      key={day.value}
-                      onClick={() => {
-                        setSelectedDate(day.value);
-                      }}
-                      className={`p-3.5 rounded-sm border flex flex-col items-center justify-center transition-all cursor-pointer ${
-                        selectedDate === day.value
-                          ? "border-[#C5A880] bg-[#C5A880]/15 text-[#C5A880] font-bold shadow-md shadow-[#C5A880]/5"
-                          : "border-white/10 hover:border-white/20 bg-white/5 hover:bg-white/[0.08]"
-                      }`}
-                    >
-                      <span className="text-[9px] uppercase tracking-widest mb-1 opacity-80 font-bold">{day.weekday}</span>
-                      <span className="text-xs font-semibold">{day.label}</span>
-                    </button>
-                  ))}
+                {/* Calendar Grid Box: Zero scrolling, fits completely! */}
+                <div className="border border-white/10 rounded-sm bg-white/5 p-4 shadow-xl">
+                  {/* Weekday headers: Mon to Sun */}
+                  <div className="grid grid-cols-7 gap-1 text-center mb-2 pb-2 border-b border-white/10 font-medium">
+                    {["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"].map((day) => (
+                      <span key={day} className="text-[10px] uppercase tracking-widest text-[#C5A880] font-bold opacity-90">
+                        {day}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Days grid: 7 columns, fits perfectly on mobile and desktop without scrolling */}
+                  <div className="grid grid-cols-7 gap-1.5 text-center">
+                    {getCalendarDays().map((day, idx) => (
+                      day.isPadding ? (
+                        <div key={`empty-${idx}`} className="p-2 aspect-square"></div>
+                      ) : (
+                        <button
+                          key={day.value}
+                          disabled={day.disabled}
+                          onClick={() => setSelectedDate(day.value)}
+                          className={`p-2 text-xs rounded-sm border transition-all flex items-center justify-center font-bold aspect-square max-h-10 cursor-pointer ${
+                            day.disabled
+                              ? "opacity-15 cursor-not-allowed border-transparent text-[#FAF7F2]/40"
+                              : selectedDate === day.value
+                              ? "border-[#C5A880] bg-[#C5A880] text-white font-extrabold shadow-md shadow-[#C5A880]/20 scale-105"
+                              : "border-white/5 hover:border-white/20 bg-white/5 hover:bg-white/[0.08] text-[#F4F1EA]"
+                          }`}
+                        >
+                          {day.label}
+                        </button>
+                      )
+                    ))}
+                  </div>
                 </div>
               </div>
 
