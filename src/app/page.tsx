@@ -452,7 +452,7 @@ export default function Home() {
 
           <div className="lg:col-span-7 h-96 lg:h-auto min-h-[350px] rounded-sm overflow-hidden border border-[#B69668]/15 relative shadow-xl bg-white p-1">
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m4!2s0x47b073003051ad35%3A0xe1db6ce59820fcf2!2sGerhart-Hauptmann-Stra%C3%9Fe%2016%2C%2030826%20Garbsen!5m2!1sde!2sde"
+              src="https://maps.google.com/maps?q=Gerhart-Hauptmann-Stra%C3%9Fe%2016,%2030826%20Garbsen&t=&z=15&ie=UTF8&iwloc=&output=embed"
               width="100%" 
               height="100%" 
               style={{ border: 0, filter: "grayscale(0.2) contrast(1.02) brightness(1.01)" }} 
@@ -470,7 +470,6 @@ export default function Home() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 font-medium">
           <p>© {new Date().getFullYear()} Damir & Cagla's Massagepraxis. Alle Rechte vorbehalten.</p>
           <div className="flex gap-6 uppercase tracking-widest text-[9px] font-bold">
-            <Link href="/admin" className="hover:text-[#B69668] transition-colors">Admin Login</Link>
             <a href="#home" className="hover:text-[#B69668] transition-colors">Nach oben</a>
           </div>
         </div>
