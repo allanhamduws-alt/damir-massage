@@ -7,6 +7,7 @@ export default function HeroVideo() {
 
   useEffect(() => {
     if (videoRef.current) {
+      // Force muted state via ref to bypass iOS/Chrome autoplay protection
       videoRef.current.muted = true;
       videoRef.current.play().catch((err) => {
         console.log("Autoplay was prevented by browser policies:", err);
@@ -21,13 +22,12 @@ export default function HeroVideo() {
       loop
       muted
       playsInline
-      className="w-full h-full object-cover scale-105"
+      className="w-full h-full object-cover opacity-90 transition-opacity duration-1000"
       poster="/images/hero.png"
     >
-      <source
-        src="https://assets.mixkit.co/videos/preview/mixkit-massage-therapist-massaging-a-client-41908-large.mp4"
-        type="video/mp4"
-      />
+      <source src="/videos/hero.mp4" type="video/mp4" />
+      {/* Fallback support for older systems */}
+      Your browser does not support the video tag.
     </video>
   );
 }

@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #12110F;
-  --foreground: #F4F1EA;
-  --accent-gold: #C5A880;
-  --accent-gold-hover: #D4AF37;
-  --card-bg: rgba(26, 24, 22, 0.7);
-  --border-gold: rgba(197, 168, 128, 0.15);
+  --background: #FAF7F2;
+  --foreground: #2D2B28;
+  --accent-gold: #B69668;
+  --accent-gold-hover: #A08154;
+  --card-bg: #FFFFFF;
+  --border-gold: rgba(182, 150, 104, 0.2);
+  --selection-bg: #EFEBE4;
 }
 
 @theme inline {
@@ -20,23 +21,24 @@
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
-/* Custom Scrollbar */
+/* Elegant Premium Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #12110F;
+  background: #FAF7F2;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2C2A26;
-  border-radius: 4px;
+  background: #E5DFC9;
+  border: 3px solid #FAF7F2;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3D3934;
+  background: #B69668;
 }
 
 body {
@@ -44,34 +46,52 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Premium micro-animations & transitions */
-.glass-panel {
+/* Boutique-Spa Design tokens */
+.spa-card {
   background: var(--card-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-gold);
+  box-shadow: 0 4px 20px -2px rgba(182, 150, 104, 0.05);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.gold-glow {
-  text-shadow: 0 0 12px rgba(197, 168, 128, 0.3);
+.spa-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(182, 150, 104, 0.45);
+  box-shadow: 0 12px 30px -4px rgba(182, 150, 104, 0.12);
 }
 
-.gold-glow-hover:hover {
-  text-shadow: 0 0 16px rgba(212, 175, 55, 0.5);
+/* Certificate Passepartout Frame */
+.gallery-frame {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid rgba(182, 150, 104, 0.25);
+  box-shadow: 0 10px 40px -10px rgba(45, 43, 40, 0.08);
+  padding: 1rem;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.gold-border-glow:hover {
-  box-shadow: 0 0 20px rgba(197, 168, 128, 0.1);
-  border-color: rgba(197, 168, 128, 0.4);
+.gallery-frame::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px dashed rgba(182, 150, 104, 0.3);
+  pointer-events: none;
 }
 
-/* Smooth page fade-ins */
-@keyframes fadeIn {
+.gallery-frame:hover {
+  transform: translateY(-6px) scale(1.01);
+  border-color: var(--accent-gold);
+  box-shadow: 0 20px 50px -15px rgba(182, 150, 104, 0.18);
+}
+
+/* Smooth Premium Animations */
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -79,18 +99,44 @@ body {
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 .animate-fade-in {
   animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-delay-1 {
-  animation-delay: 0.15s;
+.animate-delay-100 {
+  animation-delay: 100ms;
 }
 
-.animate-delay-2 {
-  animation-delay: 0.3s;
+.animate-delay-200 {
+  animation-delay: 200ms;
 }
 
-.animate-delay-3 {
-  animation-delay: 0.45s;
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animate-delay-400 {
+  animation-delay: 400ms;
+}
+
+/* Elegant light gold mask for background video */
+.video-mask {
+  background: linear-gradient(180deg, rgba(250, 247, 242, 0.1) 0%, rgba(250, 247, 242, 0.65) 60%, #FAF7F2 100%);
+}
+
+.text-gold-glow {
+  text-shadow: 0 0 40px rgba(182, 150, 104, 0.1);
 }
