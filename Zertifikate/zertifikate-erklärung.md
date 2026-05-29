@@ -1,0 +1,1 @@
+Hier liegen Zertifikate von dem kunden. Er hat mir diese Geschichte. Bessere aufnähme und Qualität haben wir nicht. Du musst entsprechend aus diesen Zertifikaten jedes einzelne rausschneiden und konsistent so gut es geht 1:1 nachzubauen, um diese auch vorzuzeigen auf der website , in besonderem design . 
