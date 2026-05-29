@@ -6,12 +6,13 @@ import {
   Flame, Shield, Gift, GraduationCap 
 } from "lucide-react";
 import CertificateShowcase from "./components/certificate-showcase";
+import HeroVideo from "./components/hero-video";
 
 export default function Home() {
   const data = readData();
   const activeServices = data.services.filter((s) => s.active);
 
-  // Recreated Certificates Data
+  // Recreated Certificates Data (linking to 1:1 scan-style recreated images)
   const certificates = [
     {
       id: "fachpraktiker",
@@ -31,7 +32,8 @@ export default function Home() {
         "Schröpfmassage & Shiatsu-Massage",
         "Existenzgründung, Marketing, Rechts- & Berufskunde"
       ],
-      gold: true
+      gold: true,
+      image: "/images/cert_fachpraktiker.png"
     },
     {
       id: "fitness",
@@ -50,7 +52,8 @@ export default function Home() {
         "Anamnese, Check-up & Muskelfunktionstests",
         "SPA-Techniken, Marketing & Existenzgründung"
       ],
-      gold: true
+      gold: true,
+      image: "/images/cert_fitness.png"
     },
     {
       id: "hijama",
@@ -67,7 +70,8 @@ export default function Home() {
         "Traditionelle naturheilkundliche Praxis",
         "Betreuung & Nachsorge der Klienten"
       ],
-      gold: false
+      gold: false,
+      image: "/images/cert_hijama.png"
     },
     {
       id: "baby",
@@ -84,7 +88,8 @@ export default function Home() {
         "Praktische Anwendung (Bauch- & Rückenlage)",
         "Abschluss und Integration in den Alltag"
       ],
-      gold: false
+      gold: false,
+      image: "/images/cert_baby.png"
     }
   ];
 
@@ -123,16 +128,7 @@ export default function Home() {
       <section id="home" className="relative min-h-[85vh] flex items-center justify-center py-20 overflow-hidden">
         {/* Silent Video Background */}
         <div className="absolute inset-0 z-0">
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
-            className="w-full h-full object-cover scale-105"
-            poster="/images/hero.png"
-          >
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-massage-therapist-massaging-a-client-41908-large.mp4" type="video/mp4" />
-          </video>
+          <HeroVideo />
           {/* Subtle amber & dark mask overlays */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#12110F] via-[#12110F]/80 to-transparent"></div>
           <div className="absolute inset-0 bg-[#12110F]/45 mix-blend-multiply"></div>
@@ -194,14 +190,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Wer Ist Damir Section with Real Portrait Headshot */}
+      {/* Wer Ist Damir Section with REAL downloaded portrait headshot */}
       <section id="about" className="py-24 bg-[#1A1816] border-y border-[#C5A880]/10">
         <div className="max-w-4xl mx-auto px-6 text-center flex flex-col items-center gap-8">
           <div className="relative w-40 h-40 rounded-full overflow-hidden border-2 border-[#C5A880]/40 shadow-2xl">
             <img 
-              src="/images/damir.png" 
+              src="/images/damir.jpg" 
               alt="Damir Krasnic - Certified Specialist" 
-              className="w-full h-full object-cover relative z-10" 
+              className="w-full h-full object-cover relative z-10 scale-105" 
             />
           </div>
           
@@ -221,9 +217,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Qualifikationen & Zertifikate (Interactive split pane CertificateShowcase) */}
+      {/* Qualifikationen & Zertifikate (Scanned image showcase) */}
       <section id="certificates" className="py-24 max-w-6xl mx-auto px-6 relative">
-        {/* Soft elegant background radial-glow to lighten up the darkness */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#C5A880]/3 rounded-full blur-[100px] pointer-events-none"></div>
 
         <div className="text-center max-w-xl mx-auto mb-16 relative z-10">
